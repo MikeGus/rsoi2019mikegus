@@ -1,0 +1,20 @@
+language: python
+python:
+- 3.7.3
+before_install:
+- sed '/django-heroku==/d' requirements.txt > requirements-build.txt
+install:
+- pip install -r requirements-build.txt
+before_script:
+- python manage.py migrate --no-input
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  app: rsoi2019mikegus
+  on:
+    repo: MikeGus/rsoi2019mikegus
+  api_key:
+    secure: "cuovEdJ5dYCVKEf4OGfDvkt2BHJlIhD4rape2hFgVsnShU1y14QUrFzYi2H1I2CxpA9yCeGOJyCfxm/seRBLdHiFy8PPZ1AKx6wvLZ9yOeVmcmMn5XMJmYVCCEHfQqDWyAkx3xtrteMtZ21hvdMl4t4XD5pqhGcdzMZc2srrtzXmVmK/NDPHK7v2xmjiP9M/biJC6HWNlJjsLv95DphgFxtssLZSB9Uq+C3z0xe4e/3dGrRva41C+tPokHoVSTsLZs5iXkrumJS4QXgc35vG78s+934A0FcBzlhw1QHb368RmX0W5ih9j6okMTeyrLKAlxN3qtKA6H68Foy1QwPgG33HkMVlP0P6szCSOO2Kwl+YlkoLeyyJUwvbukc4EYq0IjRXgndsZxCl/+16Z6M18bAMa6tHxz1p0JPc39Ty+3HKW1+GlO3PngGUQB8Tk+YIePIX2ZAWuL80/VMsaK5rV1EzngY/lV2NjIpto2Yz01Ac/5CvRU+EZ/l+fptAi1QzB2vW9JQ2w4Ypo9VeAOrfNG58hi3UpJLWxGTMZZDLk55YolESPA+8cu6AQmTjPBL1QrcAFeMeZsh5AYpDDcqaq8Qc6F3RfKl0rENLmE0aHHVI2958SHA5r1XwLRogL7eWuLp5B0M00WzeSP/3SfCPDMgaww56Skgn12ifFZz+yuE="
+notifications:
+  email: false
