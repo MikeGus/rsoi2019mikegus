@@ -13,7 +13,7 @@ def validate_request(fn):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
-        elif calories < 0:
+        elif int(calories) < 0:
             return Response(
                 data={
                     "msg": "Calories can't be negative"
